@@ -7,6 +7,7 @@ import Experience from '../views/Experience.vue'
 import Contact from '../views/Contact.vue'
 import Legal from '../views/Legal.vue'
 import Privacy from '../views/Privacy.vue'
+import But180Secondes from '../views/But180Secondes.vue'
 
 const routes = [
   {
@@ -38,6 +39,11 @@ const routes = [
     path: '/contact',
     name: 'Contact',
     component: Contact
+  },
+  {
+    path: '/but-en-180-secondes',
+    name: 'ButEn180Secondes',
+    component: But180Secondes
   },
   {
     path: '/legal',

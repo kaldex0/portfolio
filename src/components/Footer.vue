@@ -92,6 +92,7 @@ const navItems = [
   { name: 'Compétences', path: '/skills' },
   { name: 'Projets', path: '/projects' },
   { name: 'Expérience', path: '/experience' },
+  { name: 'BUT en 180 secondes', path: '/but-en-180-secondes' },
   { name: 'Contact', path: '/contact' }
 ]
 

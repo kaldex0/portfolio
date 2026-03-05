@@ -63,6 +63,7 @@ const navigation = [
   { name: 'Compétences', href: '/skills' },
   { name: 'Projets', href: '/projects' },
   { name: 'Expérience', href: '/experience' },
+  { name: 'BUT en 180 secondes', href: '/but-en-180-secondes' },
   { name: 'Contact', href: '/contact' },
 ]
 
