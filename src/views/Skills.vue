@@ -70,6 +70,25 @@
             </p>
           </div>
           <div class="auto-eval-grid">
+            <div class="auto-eval-competences">
+              <div class="competences-header">
+                <h3 class="semester-title">Auto evaluation</h3>
+                <span class="semester-subtitle">Competences cle</span>
+              </div>
+              <div class="competences-cards">
+                <div v-for="competence in autoEvalCompetences" :key="competence.code" class="competence-card">
+                  <div>
+                    <p class="competence-code">{{ competence.code }}</p>
+                    <p class="competence-label">{{ competence.label }}</p>
+                  </div>
+                  <div class="competence-score">
+                    <span class="competence-value">{{ competence.score }}</span>
+                    <span class="competence-max">/10</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div v-for="semester in ueSemesters" :key="semester.name" class="semester-card">
               <div class="semester-header">
                 <h3 class="semester-title">{{ semester.name }}</h3>
@@ -158,52 +177,13 @@ const summaryCards = [
   { label: 'Niveau moyen', value: `${averageLevel}%` }
 ]
 
+const autoEvalCompetences = [
+  { code: 'C1', label: 'Realiser', score: '5' },
+  { code: 'C2', label: 'Optimiser', score: '4' },
+  { code: 'C6', label: 'Collaborer', score: '4.5' }
+]
+
 const ueSemesters = [
-  {
-    name: 'Semestre 6',
-    year: '2025',
-    ues: [
-      {
-        code: 'UE6.1A',
-        title: 'C1 - Realiser',
-        average: '19.00',
-        modules: [
-          { code: 'R6.A.05', title: 'Developpement avance', note: '19.00' },
-          { code: 'R6.A.06', title: 'Maintenance applicative', note: '~' },
-          { code: 'S6.A.01', title: 'Evolution d une application existante', note: '~' },
-          { code: 'P6.A.01', title: 'Portfolio', note: '~' },
-          { code: 'STAGE.A', title: 'Stage', note: '~' }
-        ]
-      },
-      {
-        code: 'UE6.2',
-        title: 'C2 - Optimiser',
-        average: '19.00',
-        modules: [
-          { code: 'R6.A.05', title: 'Developpement avance', note: '19.00' },
-          { code: 'R6.A.06', title: 'Maintenance applicative', note: '~' },
-          { code: 'S6.A.01', title: 'Evolution d une application existante', note: '~' },
-          { code: 'P6.A.01', title: 'Portfolio', note: '~' },
-          { code: 'STAGE.A', title: 'Stage', note: '~' }
-        ]
-      },
-      {
-        code: 'UE6.6A',
-        title: 'C6 - Collaborer',
-        average: '15.69',
-        modules: [
-          { code: 'R6.01', title: 'Initiation a l entrepreneuriat', note: '~' },
-          { code: 'R6.02', title: 'Droit du numerique', note: '~' },
-          { code: 'R6.03', title: 'Communication : org. et diff. de l info.', note: '14.75' },
-          { code: 'R6.04', title: 'Projet personnel et professionnel', note: '~' },
-          { code: 'R6.A.05', title: 'Developpement avance', note: '19.00' },
-          { code: 'S6.A.01', title: 'Evolution d une application existante', note: '~' },
-          { code: 'P6.A.01', title: 'Portfolio', note: '~' },
-          { code: 'STAGE.A', title: 'Stage', note: '~' }
-        ]
-      }
-    ]
-  },
   {
     name: 'Semestre 5',
     year: '2025',
@@ -422,6 +402,66 @@ const ueSemesters = [
 .auto-eval-grid {
   display: grid;
   gap: 2rem;
+}
+
+.auto-eval-competences {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.competences-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.competences-cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.competence-card {
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background-color: var(--secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.competence-code {
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.competence-label {
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+}
+
+.competence-score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.competence-value {
+  font-size: 1.4rem;
+}
+
+.competence-max {
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
 }
 
 .semester-card {
