@@ -20,18 +20,17 @@
         <div class="max-w-5xl mx-auto">
           <div class="card p-6 md:p-8">
             <div class="video-frame">
-              <video
-                class="video-player"
-                controls
-                preload="metadata"
-                aria-label="Video BUT en 180 secondes"
-              >
-                <source src="/video/BUTen180SEC.mp4" type="video/mp4" />
-                Votre navigateur ne supporte pas la lecture video.
-              </video>
+              <iframe
+                class="video-embed"
+                src="https://www.youtube.com/embed/bnWgvc55WkU"
+                title="BUT en 180 secondes"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
             </div>
             <p class="text-sm text-gray-600 dark:text-gray-400 mt-4 text-center">
-              Duree : 3 minutes. Si la lecture ne demarre pas, utilisez le bouton plein ecran.
+              Duree : 3 minutes. Lecture via YouTube.
             </p>
           </div>
         </div>
@@ -42,14 +41,19 @@
 
 <style scoped>
 .video-frame {
+  position: relative;
   width: 100%;
+  padding-top: 56.25%;
   border-radius: 0.75rem;
   overflow: hidden;
   background-color: #0f172a;
 }
 
-.video-player {
+.video-embed {
+  position: absolute;
+  inset: 0;
   width: 100%;
+  height: 100%;
   display: block;
 }
 </style>
