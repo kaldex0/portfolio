@@ -63,32 +63,40 @@
         <div class="auto-eval">
           <div class="auto-eval-header">
             <h2 class="text-3xl font-display font-bold text-gray-900 dark:text-white">
-              Auto evaluation des UE (Semestre 6)
+              Auto evaluation des UE
             </h2>
             <p class="text-gray-600 dark:text-gray-400">
               Notes issues de mon relevé. Les valeurs "~" indiquent des notes non definitives.
             </p>
           </div>
           <div class="auto-eval-grid">
-            <div v-for="ue in ueEvaluations" :key="ue.code" class="auto-eval-card">
-              <div class="auto-eval-top">
-                <div>
-                  <h3 class="auto-eval-title">{{ ue.title }}</h3>
-                  <p class="auto-eval-code">{{ ue.code }}</p>
-                </div>
-                <div class="auto-eval-score">
-                  <span class="auto-eval-value">{{ ue.average }}</span>
-                  <span class="auto-eval-label">/20</span>
-                </div>
+            <div v-for="semester in ueSemesters" :key="semester.name" class="semester-card">
+              <div class="semester-header">
+                <h3 class="semester-title">{{ semester.name }}</h3>
+                <span class="semester-subtitle">{{ semester.year }}</span>
               </div>
-              <div class="auto-eval-modules">
-                <div v-for="module in ue.modules" :key="module.code" class="auto-eval-module">
-                  <div>
-                    <p class="module-title">{{ module.title }}</p>
-                    <p class="module-code">{{ module.code }}</p>
+              <div class="semester-ues">
+                <div v-for="ue in semester.ues" :key="ue.code" class="auto-eval-card">
+                  <div class="auto-eval-top">
+                    <div>
+                      <h4 class="auto-eval-title">{{ ue.title }}</h4>
+                      <p class="auto-eval-code">{{ ue.code }}</p>
+                    </div>
+                    <div class="auto-eval-score">
+                      <span class="auto-eval-value">{{ ue.average }}</span>
+                      <span class="auto-eval-label">/20</span>
+                    </div>
                   </div>
-                  <div class="module-note" :class="{ pending: module.note === '~' }">
-                    {{ module.note }}
+                  <div class="auto-eval-modules">
+                    <div v-for="module in ue.modules" :key="module.code" class="auto-eval-module">
+                      <div>
+                        <p class="module-title">{{ module.title }}</p>
+                        <p class="module-code">{{ module.code }}</p>
+                      </div>
+                      <div class="module-note" :class="{ pending: module.note === '~' }">
+                        {{ module.note }}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -150,44 +158,105 @@ const summaryCards = [
   { label: 'Niveau moyen', value: `${averageLevel}%` }
 ]
 
-const ueEvaluations = [
+const ueSemesters = [
   {
-    code: 'UE6.1A',
-    title: 'C1 - Realiser',
-    average: '19.00',
-    modules: [
-      { code: 'R6.A.05', title: 'Developpement avance', note: '19.00' },
-      { code: 'R6.A.06', title: 'Maintenance applicative', note: '~' },
-      { code: 'S6.A.01', title: 'Evolution d une application existante', note: '~' },
-      { code: 'P6.A.01', title: 'Portfolio', note: '~' },
-      { code: 'STAGE.A', title: 'Stage', note: '~' }
+    name: 'Semestre 6',
+    year: '2025',
+    ues: [
+      {
+        code: 'UE6.1A',
+        title: 'C1 - Realiser',
+        average: '19.00',
+        modules: [
+          { code: 'R6.A.05', title: 'Developpement avance', note: '19.00' },
+          { code: 'R6.A.06', title: 'Maintenance applicative', note: '~' },
+          { code: 'S6.A.01', title: 'Evolution d une application existante', note: '~' },
+          { code: 'P6.A.01', title: 'Portfolio', note: '~' },
+          { code: 'STAGE.A', title: 'Stage', note: '~' }
+        ]
+      },
+      {
+        code: 'UE6.2',
+        title: 'C2 - Optimiser',
+        average: '19.00',
+        modules: [
+          { code: 'R6.A.05', title: 'Developpement avance', note: '19.00' },
+          { code: 'R6.A.06', title: 'Maintenance applicative', note: '~' },
+          { code: 'S6.A.01', title: 'Evolution d une application existante', note: '~' },
+          { code: 'P6.A.01', title: 'Portfolio', note: '~' },
+          { code: 'STAGE.A', title: 'Stage', note: '~' }
+        ]
+      },
+      {
+        code: 'UE6.6A',
+        title: 'C6 - Collaborer',
+        average: '15.69',
+        modules: [
+          { code: 'R6.01', title: 'Initiation a l entrepreneuriat', note: '~' },
+          { code: 'R6.02', title: 'Droit du numerique', note: '~' },
+          { code: 'R6.03', title: 'Communication : org. et diff. de l info.', note: '14.75' },
+          { code: 'R6.04', title: 'Projet personnel et professionnel', note: '~' },
+          { code: 'R6.A.05', title: 'Developpement avance', note: '19.00' },
+          { code: 'S6.A.01', title: 'Evolution d une application existante', note: '~' },
+          { code: 'P6.A.01', title: 'Portfolio', note: '~' },
+          { code: 'STAGE.A', title: 'Stage', note: '~' }
+        ]
+      }
     ]
   },
   {
-    code: 'UE6.2',
-    title: 'C2 - Optimiser',
-    average: '19.00',
-    modules: [
-      { code: 'R6.A.05', title: 'Developpement avance', note: '19.00' },
-      { code: 'R6.A.06', title: 'Maintenance applicative', note: '~' },
-      { code: 'S6.A.01', title: 'Evolution d une application existante', note: '~' },
-      { code: 'P6.A.01', title: 'Portfolio', note: '~' },
-      { code: 'STAGE.A', title: 'Stage', note: '~' }
-    ]
-  },
-  {
-    code: 'UE6.6A',
-    title: 'C6 - Collaborer',
-    average: '15.69',
-    modules: [
-      { code: 'R6.01', title: 'Initiation a l entrepreneuriat', note: '~' },
-      { code: 'R6.02', title: 'Droit du numerique', note: '~' },
-      { code: 'R6.03', title: 'Communication : org. et diff. de l info.', note: '14.75' },
-      { code: 'R6.04', title: 'Projet personnel et professionnel', note: '~' },
-      { code: 'R6.A.05', title: 'Developpement avance', note: '19.00' },
-      { code: 'S6.A.01', title: 'Evolution d une application existante', note: '~' },
-      { code: 'P6.A.01', title: 'Portfolio', note: '~' },
-      { code: 'STAGE.A', title: 'Stage', note: '~' }
+    name: 'Semestre 5',
+    year: '2025',
+    ues: [
+      {
+        code: 'UE5.1A',
+        title: 'C1 - Realiser',
+        average: '12.79',
+        modules: [
+          { code: 'R5.A.04', title: 'Qualite algorithmique', note: '11.50' },
+          { code: 'R5.A.05', title: 'Programmation avancee', note: '13.50' },
+          { code: 'R5.A.06', title: 'Sensibilisation a la prog. multimedia', note: '13.95' },
+          { code: 'R5.A.07', title: 'Automatisation de la chaine de prod', note: '16.00' },
+          { code: 'R5.A.08', title: 'Qualite de developpement', note: '17.50' },
+          { code: 'R5.A.09', title: 'Virtualisation avancee', note: '15.50' },
+          { code: 'R5.A.10', title: 'Nouveaux paradigmes de bdd', note: '03.50' },
+          { code: 'R5.A.13', title: 'Economie durable et numerique', note: '16.50' },
+          { code: 'R5.A.14', title: 'Anglais', note: '16.00' },
+          { code: 'S5.A.01', title: 'Developpement avance', note: '13.22' }
+        ]
+      },
+      {
+        code: 'UE5.2',
+        title: 'C2 - Optimiser',
+        average: '11.15',
+        modules: [
+          { code: 'R5.A.04', title: 'Qualite algorithmique', note: '11.50' },
+          { code: 'R5.A.05', title: 'Programmation avancee', note: '13.50' },
+          { code: 'R5.A.06', title: 'Sensibilisation a la prog. multimedia', note: '13.95' },
+          { code: 'R5.A.08', title: 'Qualite de developpement', note: '17.50' },
+          { code: 'R5.A.09', title: 'Virtualisation avancee', note: '15.50' },
+          { code: 'R5.A.10', title: 'Nouveaux paradigmes de bdd', note: '03.50' },
+          { code: 'R5.A.11', title: 'Methodes d optimisation', note: '07.25' },
+          { code: 'R5.A.12', title: 'Modelisations mathematiques', note: '10.75' },
+          { code: 'R5.A.14', title: 'Anglais', note: '16.00' },
+          { code: 'S5.A.01', title: 'Developpement avance', note: '10.40' }
+        ]
+      },
+      {
+        code: 'UE5.6A',
+        title: 'C6 - Collaborer',
+        average: '11.61',
+        modules: [
+          { code: 'R5.01', title: 'Initiation au management', note: '14.00' },
+          { code: 'R5.02', title: 'Projet personnel et professionnel', note: '14.00' },
+          { code: 'R5.03', title: 'Politique de communication', note: '07.70' },
+          { code: 'R5.A.06', title: 'Sensibilisation a la prog. multimedia', note: '13.95' },
+          { code: 'R5.A.07', title: 'Automatisation de la chaine de prod', note: '16.00' },
+          { code: 'R5.A.13', title: 'Economie durable et numerique', note: '16.50' },
+          { code: 'R5.A.14', title: 'Anglais', note: '16.00' },
+          { code: 'S5.A.01', title: 'Developpement avance', note: '09.12' }
+        ]
+      }
     ]
   }
 ]
@@ -351,6 +420,32 @@ const ueEvaluations = [
 }
 
 .auto-eval-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.semester-card {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.semester-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.semester-title {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--foreground);
+}
+
+.semester-subtitle {
+  color: var(--muted-foreground);
+}
+
+.semester-ues {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
