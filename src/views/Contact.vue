@@ -3,13 +3,34 @@
     <!-- Contact Hero -->
     <section class="section-padding bg-gradient-to-br from-primary-50 to-accent-50 dark:from-gray-900 dark:to-gray-800">
       <div class="container-custom">
-        <div class="max-w-4xl mx-auto text-center">
-          <h1 class="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-6">
-            Me Contacter
-          </h1>
-          <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-            Une idée de projet ? Discutons-en ensemble !
-          </p>
+        <div class="contact-hero max-w-5xl mx-auto">
+          <div class="contact-hero-copy">
+            <span class="hero-badge">Discutons ensemble</span>
+            <h1 class="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-6">
+              Me contacter
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+              Besoin d un stage, d un projet ou d un coup de main technique ?
+              Je reponds vite et clairement.
+            </p>
+            <div class="hero-highlights">
+              <div v-for="item in contactHighlights" :key="item.label" class="highlight-card">
+                <span class="highlight-value">{{ item.value }}</span>
+                <span class="highlight-label">{{ item.label }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="contact-hero-panel">
+            <div class="panel-card">
+              <p class="panel-title">Canaux preferes</p>
+              <div class="panel-tags">
+                <span class="panel-tag">Email</span>
+                <span class="panel-tag">GitHub</span>
+                <span class="panel-tag">Telephone</span>
+              </div>
+              <p class="panel-note">Reponse sous 24h en semaine.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -17,9 +38,9 @@
     <!-- Contact Content -->
     <section class="section-padding bg-white dark:bg-gray-900">
       <div class="container-custom">
-        <div class="grid lg:grid-cols-2 gap-12">
+        <div class="contact-grid">
           <!-- Contact Form -->
-          <div class="card p-8">
+          <div class="card p-8 contact-card">
             <h2 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-6">
               Envoyez-moi un message
             </h2>
@@ -119,12 +140,12 @@
           </div>
 
           <!-- Contact Info -->
-          <div class="space-y-8">
-            <div class="card p-8">
+          <div class="contact-side">
+            <div class="card p-8 contact-card">
               <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">
                 Informations de contact
               </h3>
-              <div class="space-y-4">
+              <div class="space-y-4 contact-details">
                 <div class="flex items-center space-x-3">
                   <div class="w-10 h-10 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center">
                     <svg class="w-5 h-5 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,11 +189,11 @@
               </div>
             </div>
 
-            <div class="card p-8">
+            <div class="card p-8 contact-card">
               <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-                moyen de contact alternatif
+                Autres moyens
               </h3>
-              <div class="grid grid-cols-2 gap-4">
+              <div class="contact-links">
                 <a href="https://github.com/kaldex0" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                   <div class="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center">
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -188,9 +209,14 @@
                       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                     </svg>
                   </div>
-                  <span class="text-sm font-medium text-gray-900 dark:text-white">mail</span>
+                  <span class="text-sm font-medium text-gray-900 dark:text-white">Email</span>
                 </a>
               </div>
+            </div>
+            <div class="contact-note">
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Je suis base a Dunkerque et disponible pour des echanges a distance.
+              </p>
             </div>
           </div>
         </div>
@@ -206,6 +232,12 @@ const isSubmitting = ref(false)
 const showSuccess = ref(false)
 const showError = ref(false)
 const errorMessage = ref('')
+
+const contactHighlights = [
+  { label: 'Reponse', value: '< 24h' },
+  { label: 'Disponibilite', value: 'Stages 2025' },
+  { label: 'Localisation', value: 'Dunkerque' }
+]
 
 const form = ref({
   firstName: '',
@@ -268,3 +300,155 @@ const submitForm = async () => {
   }
 }
 </script>
+
+<style scoped>
+.contact-hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.contact-hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.hero-badge {
+  align-self: flex-start;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background-color: var(--secondary);
+  color: var(--foreground);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.hero-highlights {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.highlight-card {
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  display: grid;
+  gap: 0.4rem;
+}
+
+.highlight-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.highlight-label {
+  color: var(--muted-foreground);
+  font-size: 0.85rem;
+}
+
+.contact-hero-panel {
+  display: grid;
+}
+
+.panel-card {
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(15, 23, 42, 0.02));
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  display: grid;
+  gap: 1rem;
+}
+
+[data-theme="dark"] .panel-card {
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.18), rgba(15, 23, 42, 0.4));
+}
+
+.panel-title {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.panel-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.panel-tag {
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  font-size: 0.8rem;
+  color: var(--foreground);
+}
+
+.panel-note {
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
+}
+
+.contact-grid {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.contact-card {
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.contact-side {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.contact-details {
+  display: grid;
+  gap: 1rem;
+}
+
+.contact-links {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.contact-note {
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background-color: var(--secondary);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contact-hero-copy,
+  .contact-hero-panel,
+  .contact-grid {
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .contact-hero-panel {
+    animation-delay: 0.1s;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
