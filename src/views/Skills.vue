@@ -3,13 +3,26 @@
     <!-- Skills Hero -->
     <section class="section-padding bg-gradient-to-br from-primary-50 to-accent-50 dark:from-gray-900 dark:to-gray-800">
       <div class="container-custom">
-        <div class="max-w-4xl mx-auto text-center">
-          <h1 class="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-6">
-            Mes Compétences
-          </h1>
-          <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-            Technologies et outils que je maîtrise pour créer des solutions web performantes
-          </p>
+        <div class="skills-hero max-w-5xl mx-auto">
+          <div class="skills-hero-copy">
+            <h1 class="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-6">
+              Mes Competences
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+              Technologies et outils que je maitrise pour creer des solutions web performantes.
+            </p>
+            <div class="skills-hero-tags">
+              <span class="hero-chip">Front-end</span>
+              <span class="hero-chip">Back-end</span>
+              <span class="hero-chip">DevOps</span>
+            </div>
+          </div>
+          <div class="skills-hero-cards">
+            <div v-for="card in summaryCards" :key="card.label" class="summary-card">
+              <span class="summary-value">{{ card.value }}</span>
+              <span class="summary-label">{{ card.label }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -17,22 +30,25 @@
     <!-- Skills Categories -->
     <section class="section-padding bg-white dark:bg-gray-900">
       <div class="container-custom">
-        <div class="space-y-16">
-          <div v-for="category in skillCategories" :key="category.title" class="skill-category">
-            <h2 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-8 text-center">
-              {{ category.title }}
-            </h2>
-            <div class="grid md:grid-cols-2 gap-6">
-              <div v-for="skill in category.skills" :key="skill.name" class="skill-item">
-                <div class="flex justify-between items-center mb-2">
-                  <span class="font-medium text-gray-900 dark:text-white">{{ skill.name }}</span>
-                  <span class="text-sm text-gray-600 dark:text-gray-400">{{ skill.level }}%</span>
+        <div class="skills-grid">
+          <div v-for="category in skillCategories" :key="category.title" class="category-card">
+            <div class="category-header">
+              <div>
+                <h2 class="text-2xl font-display font-bold text-gray-900 dark:text-white">
+                  {{ category.title }}
+                </h2>
+                <p class="category-subtitle">{{ category.skills.length }} competences</p>
+              </div>
+              <span class="category-badge">Niveau moyen {{ averageLevel }}%</span>
+            </div>
+            <div class="category-skills">
+              <div v-for="skill in category.skills" :key="skill.name" class="skill-card">
+                <div class="skill-top">
+                  <span class="skill-name">{{ skill.name }}</span>
+                  <span class="skill-level">{{ skill.level }}%</span>
                 </div>
-                <div class="skill-bar">
-                  <div 
-                    class="skill-progress" 
-                    :style="{ width: skill.level + '%' }"
-                  ></div>
+                <div class="skill-meter">
+                  <span class="skill-fill" :style="{ width: skill.level + '%' }"></span>
                 </div>
               </div>
             </div>
@@ -79,4 +95,165 @@ const skillCategories = [
     ]
   }
 ]
+
+const totalSkills = skillCategories.reduce((total, category) => total + category.skills.length, 0)
+const averageLevel = Math.round(
+  skillCategories
+    .flatMap(category => category.skills.map(skill => skill.level))
+    .reduce((sum, level) => sum + level, 0) / totalSkills
+)
+
+const summaryCards = [
+  { label: 'Competences', value: totalSkills },
+  { label: 'Categories', value: skillCategories.length },
+  { label: 'Niveau moyen', value: `${averageLevel}%` }
+]
 </script>
+
+<style scoped>
+.skills-hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.skills-hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skills-hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.hero-chip {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  color: var(--foreground);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.skills-hero-cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.summary-card {
+  padding: 1.2rem 1.4rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  display: grid;
+  gap: 0.4rem;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.summary-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.summary-label {
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
+}
+
+.skills-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.category-card {
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.category-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.category-subtitle {
+  color: var(--muted-foreground);
+}
+
+.category-badge {
+  align-self: flex-start;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background-color: var(--secondary);
+  color: var(--foreground);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.category-skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.skill-card {
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background-color: var(--secondary);
+  display: grid;
+  gap: 0.7rem;
+}
+
+.skill-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.skill-level {
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+}
+
+.skill-meter {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background-color: var(--card);
+  overflow: hidden;
+}
+
+.skill-fill {
+  position: absolute;
+  inset: 0;
+  width: 0;
+  background: linear-gradient(90deg, var(--primary), var(--primary-700));
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+@media (min-width: 768px) {
+  .category-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+</style>
